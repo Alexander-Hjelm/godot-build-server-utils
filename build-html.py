@@ -19,7 +19,7 @@ html_out_file = open(fo_path, "w+")
 html_out_file.write("<html>\n<head>\n<title>Godot build results</title>\n</head>\n<body>\n")
 
 for root, dirs, files in os.walk(log_dir, topdown=True):
-	for name in files:
+	for name in sorted(files, reverse=True):
 		full_name = os.path.join(root, name)
 		log_file = open(full_name, "r+")
 

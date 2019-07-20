@@ -3,7 +3,7 @@ import sys
 
 appending = False
 
-fo_name = "test_output_" + str(datetime.datetime.now())
+fo_name = "test_output_" + str(datetime.datetime.now()).replace(" ", "_")
 
 if len(sys.argv) > 1:
 	out_dir = sys.argv[1]
