@@ -28,10 +28,10 @@ for root, dirs, files in os.walk(log_dir, topdown=True):
 		reading_meta = True
 		meta_success = ""
 		meta_datetime = ""
-		wrote_first_content_line = False
+		wrote_div_top = False
 
 		# Write HTML list item for this log
-		html_out_file.write("<div>\n<h3>\n")
+		html_out_file.write("<div ")
 
 		for x in range(0, len(content)):
 			line = content[x]
@@ -40,20 +40,31 @@ for root, dirs, files in os.walk(log_dir, topdown=True):
 				if(len(meta_line) > 1):
 					if meta_line[0] == "SUCCESS":
 						meta_success = meta_line[1].rstrip()
-						if meta_success:
-							html_out_file.write("BUILD SUCCEEDED\n")
-						else:
-							html_out_file.write("BUILD FAILED\n")
 					elif meta_line[0] == "DATETIME":
 						meta_datetime = meta_line[1].rstrip()
-						html_out_file.write(meta_datetime + "\n")
 				else:
 					reading_meta = False
+
 			else:
-				if not wrote_first_content_line:
+				if not wrote_div_top:
+					wrote_div_top = True
+
+					html_out_file.write(" style=\"background-color: ")
+					if meta_success == "True":
+						html_out_file.write("#b3ffb3")
+					else:
+						html_out_file.write("#ffb3b3");
+
+					html_out_file.write("\">\n<h2>\n" + meta_datetime + "\n")
+
+					if meta_success == "True":
+						html_out_file.write("BUILD SUCCEEDED\n")
+					else:
+						html_out_file.write("BUILD FAILED\n")
+
 					html_out_file.write("</h3>\n<br />\n")
-					wrote_first_content_line = True
 				html_out_file.write(line + "<br />")
+
 		html_out_file.write("</div>\n")
 		log_file.close()
 
