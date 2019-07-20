@@ -23,7 +23,6 @@ for root, dirs, files in os.walk(log_dir, topdown=True):
 		full_name = os.path.join(root, name)
 		log_file = open(full_name, "r+")
 
-		print("Read log file: " + full_name)
 		content = log_file.readlines()
 		reading_meta = True
 		meta_success = ""
@@ -72,5 +71,4 @@ for root, dirs, files in os.walk(log_dir, topdown=True):
 html_out_file.write("</body>\n</html>\n")
 html_out_file.close()
 
-# TODO
-# Set color of list item depending on SUCCESS
+print("Created test report html file")

@@ -1,6 +1,8 @@
 import datetime
 import sys
 
+print("Running GUT test suite...")
+
 appending = False
 
 fo_name = "test_output_" + str(datetime.datetime.now()).replace(" ", "_")
@@ -19,12 +21,10 @@ success = True
 
 
 for line in sys.stdin:
-	sys.stdout.write(line)
 	if line[0] == '/':
 		appending = True
 	if appending:
 		out_lines.append(line)
-	print(line.split(" "))
 	if len(line.split(" ")) > 5 and line.split(" ")[5] == "FAILED:":
 		success = False
 
@@ -35,3 +35,8 @@ fo.write("SUCCESS="+str(success)+"\n")
 fo.writelines(out_lines)
 
 fo.close()
+
+if success:
+	print("All GUT tests ran SUCCESSFULLY. :)")
+else:
+	print("GUT test suite FAILED! Please check https://www.groove.cool/godot_test_log.html for the test report.")
