@@ -1,9 +1,14 @@
 #!/bin/bash
+PATH_TO_REPO="/path/to/repo"
+PATH_TO_REMOTE="/path/to/remote"
+PATH_TO_BUILD_SERVER_UTILS="/path/to/build/server/utils"
 while read oldrev newrev refname
 do
     branch=$(git rev-parse --symbolic --abbrev-ref $refname)
     if [ "master" == "$branch" ]; then
-        # Run the build server utils script
-        ~/godot-build-server-utils/run-tests.sh
+	# Pull the server instance of the repo
+	GIT_DIR=$PATH_TO_REPO/.git GIT_WORK_TREE=$PATH_TO_REPO git pull $PATH_TO_REMOTE;
+	# Update the local copy of the repo
+	$PATH_TO_BUILD_SERVER_UTILS/run-tests-3d.sh
     fi
 done
