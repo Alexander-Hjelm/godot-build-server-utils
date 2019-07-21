@@ -12,6 +12,9 @@ PATH_TO_BUILD_UTILS="/home/pi/godot-build-server-utils"
 # NOTE: This directory must contain a project.godot file and an addons/gut/ directory
 PATH_TO_GODOT_PROJECT="/home/pi/godot_311_hook_test"
 
+# Name of the logs directory. Must reside inside the Build Server Utils directory
+LOG_DIR_NAME="logs"
+
 # The html file that will be built, containing all previous test result logs
 # NOTE: Make sure that the user has sufficient write permission
 PATH_TO_HTML_OUTPUT="/var/www/html/godot_test_log.html"
@@ -34,7 +37,7 @@ then
     exit 1
 fi
 
-$godot -d -s --path $PATH_TO_GODOT_PROJECT addons/gut/gut_cmdln.gd -gtest=res://test/unit/test_example.gd -glog=0 -gexit | python3 $PATH_TO_BUILD_UTILS/parse-gut-logs.py $PATH_TO_BUILD_UTILS/logs;
-python3 $PATH_TO_BUILD_UTILS/build-html.py $PATH_TO_BUILD_UTILS/logs $PATH_TO_HTML_OUTPUT;
+$godot -d -s --path $PATH_TO_GODOT_PROJECT addons/gut/gut_cmdln.gd -gtest=res://test/unit/test_example.gd -glog=0 -gexit | python3 $PATH_TO_BUILD_UTILS/parse-gut-logs.py $PATH_TO_BUILD_UTILS/$LOG_DIR_NAME;
+python3 $PATH_TO_BUILD_UTILS/build-html.py $PATH_TO_BUILD_UTILS/$LOG_DIR_NAME $PATH_TO_HTML_OUTPUT;
 echo "Copied log file to web server"
 exit 0
