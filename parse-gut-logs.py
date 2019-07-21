@@ -7,12 +7,15 @@ appending = False
 
 fo_name = "test_output_" + str(datetime.datetime.now()).replace(" ", "_")
 
-if len(sys.argv) > 1:
-	out_dir = sys.argv[1]
-	if not out_dir[-1] == "/":
-		out_dir += "/"
-	fo_name = out_dir + fo_name
+if len(sys.argv) <= 1:
+	print("USAGE: python3 parse-gut-logs.py <log output directory>")
+	sys.exit(1)
 
+out_dir = sys.argv[1]
+if not out_dir[-1] == "/":
+	out_dir += "/"
+
+fo_name = out_dir + fo_name
 fo = open(fo_name, "w+")
 
 out_lines = []

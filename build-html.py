@@ -4,15 +4,17 @@ import sys
 fo_path = "test_log.html"
 
 # USAGE: build_html.py <log directory> <output file>
-
-if len(sys.argv) > 2:
-	out_dir = sys.argv[2]
-	if out_dir[-1] == "/":
-		fo_path = out_dir + fo_path
-	else:
-		fo_path = out_dir
+if len(sys.argv) <= 2:
+	print("USAGE: build_html.py <log directory> <output file>")
+	sys.exit(1)
 
 log_dir = sys.argv[1]
+out_dir = sys.argv[2]
+
+if out_dir[-1] == "/":
+	fo_path = out_dir + fo_path
+else:
+	fo_path = out_dir
 
 # Write surrounding HTML
 html_out_file = open(fo_path, "w+")
