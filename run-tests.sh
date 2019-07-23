@@ -37,7 +37,7 @@ then
     exit 1
 fi
 
-$godot -d -s --path $PATH_TO_GODOT_PROJECT addons/gut/gut_cmdln.gd -gtest=res://test/unit/test_example.gd -glog=0 -gexit | python3 $PATH_TO_BUILD_UTILS/parse-gut-logs.py $PATH_TO_BUILD_UTILS/$LOG_DIR_NAME;
+$godot -d -s --path $PATH_TO_GODOT_PROJECT addons/gut/gut_cmdln.gd -gdir=res://test/unit -glog=0 -gexit | python3 $PATH_TO_BUILD_UTILS/parse-gut-logs.py $PATH_TO_BUILD_UTILS/$LOG_DIR_NAME;
 python3 $PATH_TO_BUILD_UTILS/build-html.py $PATH_TO_BUILD_UTILS/$LOG_DIR_NAME $PATH_TO_HTML_OUTPUT;
 echo "Copied log file to web server"
 exit 0
